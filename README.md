@@ -19,7 +19,7 @@ jobs:
       - name: Generate SSH client certificate
         if: github.ref == 'refs/heads/main'
         id: ssh_cert
-        uses: andreaso/vault-oidc-ssh-cert-action@v1
+        uses: andreaso/vault-oidc-ssh-cert-action@v2.0
         with:
           vault_server: https://vault.example.com:8200
           jwt_audience: vault.example.com
@@ -41,6 +41,14 @@ jobs:
 Do note that all client certification configuration is expected to
 happen on the Vault end, given that that is where all the limitations
 can be enforced.
+
+
+## Automated cleanup
+
+All the action's writes are to the `${{ runner.temp }}`
+directory. Hence as soon as the job is completed both the SSH
+certificate and its private key will be automatically removed, even in
+the case of a non-ephemeral runner.
 
 
 ## Corresponding Configuration
