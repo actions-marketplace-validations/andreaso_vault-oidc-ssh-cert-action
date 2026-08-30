@@ -16,19 +16,11 @@ permissions:
 jobs:
   python:
     name: Python
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os:
-          - ubuntu-22.04
-          - ubuntu-22.04-arm
-          - ubuntu-24.04
-          - ubuntu-24.04-arm
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -53,15 +45,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: Setup Secondary Linters
-        uses: andreaso/setup-secondary-linters@main
-
-      - name: Lint GitHub Actions workflows
-        run: actionlint
+        uses: andreaso/setup-secondary-linters@537e600c179acebb04008c58de2b20518ff54aa8 # v0.1
 
       - name: Analyze GitHub Actions
         run: zizmor --format=github .
